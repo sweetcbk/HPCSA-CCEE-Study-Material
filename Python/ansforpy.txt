@@ -1,0 +1,79 @@
+1.
+mon=int(input("enter the number of days in the month"))
+day=int(input("what day of week the month begin 0 for monday,1 for tuesday......6 for sunday"))
+b=0
+count=0
+print("M  T  W  T  F  S  S")
+while(b<day):
+	print(" ",end="  ")
+	b=b+1
+	count=count+1	
+i=0
+for i in range(1,mon+1):
+	if count%7==0:
+		print("\n")
+	if i<=9:
+		print(i,end="  ")
+	else:
+		print(i,end=" ")
+	count=count+1
+print("\n")
+2.
+def histogram(a):
+	for i in a:
+		print("*"*i)
+n=int(input("enter the number of integers"))
+i=1
+b=[]
+while(i<=n):
+	d=int(input())
+	b.append(d)
+	i=i+1
+histogram(b)			
+3.
+lst=[]
+string=input("Enter the string")
+str1=string.lower()
+for ch in str1:
+        if ch.isalnum():
+                lst.append(ch)
+a=lst[::-1]
+if lst==a:
+        print("Palindrome")
+else:
+        print("Not palindrome")
+4.
+lst=[]
+string=input("enter the string")
+string=string.lower()
+for ch in string:
+        if ch.isalnum():
+                lst.append(ch)
+lst_set=set(lst)
+if(len(lst_set)==26):
+        print( "given string is panagram")
+else:
+        print( "not a panagram")
+5.
+key={'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t','h':'u', 'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c','q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k', 'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q','E':'R', 'F':'S', 'G':'T','H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A', 'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F','T':'G', 'U':'H', 'V':'I','W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
+lst=[]
+str1=input("Enter the string")
+for ch in str1:
+        if ch.isalnum():
+                lst.append(key[ch])
+        else:
+                lst.append(ch)
+str1="".join(lst)
+print(str1)
+
+
+Day3:
+
+2.
+def fact(a):
+        return 1 if (a==1 or a==0) else a*fact(a - 1)
+n=1
+while(n<=10):
+        print("factorial of",n,"is :",fact(n))
+        n=n+1
+

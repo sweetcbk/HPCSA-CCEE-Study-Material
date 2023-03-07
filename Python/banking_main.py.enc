@@ -1,0 +1,176 @@
+class Account:
+    def __init__(self,pid,pname,email,mob,balance):
+        self.__pid=pid
+        self.__pname=pname
+        self.__email=email
+        self.__mob=mob
+        self.__bal=balance
+    def __str__(self):
+        return str(self.__pid)+"={"+"'name':"+"'"+self.__pname+"'"+",'email':"+"'"+self.__email+"'"+",'mobileno':"+str(self.__mob)+",'balance':"+str(self.__bal)
+class Savings(Account):
+    def __init__(self,pid,pname,email,mob,balance,type1):
+        Account.__init__(self,pid,pname,email,mob,balance)
+        pd=str(Account.getpid(self))
+        self.__cheque="SAV00"+pd[1:4]
+        self.__type1=type1
+        
+    def __str__(self):
+        return Account.__str__(self)+",'cheque_no':"+"'"+str(self.__cheque)+"','account_type':"+"'"+str(self.__type1)+"'}"
+class Current(Account):
+    def __init__(self,pid,pname,email,mob,balance,usrname,pin,type1):
+        Account.__init__(self,pid,pname,email,mob,balance)
+        self.__usrname=usrname
+        self.__pin=pin
+        self.__type1=type1
+    def __str__(self):
+        return Account.__str__(self)+",'username':"+"'"+self.__usrname+"'"+",'pin':"+str(self.__pin)+ ",'accounttype':"+"'"+str(self.__type1)+"'}"
+import ast 
+d = {}
+def getcred_savings():
+    try:
+        pid=int(input('enter the account no of the holder:'))
+        if pid in d.keys():
+            print("account number already exists give another one")
+            return 0
+        pname=input('enter the name:')
+        email=input('enter the email:')
+        mob=int(input('enter the mobile number:'))
+        balance=int(input('enter the balance:'))
+        
+        type1=input('enter the type of account:')
+        k=Savings(pid,pname,email,mob,balance,type1)
+        with open("datarecord.txt","a") as fh:
+            print(k, file=fh)
+        fh.close()
+    except ValueError:
+        print('Input correct type of data')
+        return 0
+    
+def getcred_current():
+    try:
+        pid=int(input('enter the account no of the holder:'))
+        if pid in d.keys():
+            print("account number already exists give another one")
+            return 0
+        pname=input('enter the namer:')
+        email=input('enter the email:')
+        mob=int(input('enter the mobile number:'))
+        balance=int(input('enter the balance:'))
+        usrname=input('enter the username:')
+        pin=int(input('enter the pin:'))
+        type1=input('enter the type of account:')
+        k=Current(pid,pname,email,mob,balance,usrname,pin,type1)
+        with open("datarecord.txt","a") as fh:
+            print(k, file=fh)
+        fh.close()
+    except ValueError:
+        print('Input correct type of data')
+        return 0
+def add():
+    acc_type=input("enter the account type to create Current or Savings:")
+    if acc_type=="current":
+        p=getcred_current()
+        if p!=0:
+            print("your current account is created successfully")
+    else:
+        x=getcred_savings()
+        if x!=0 :
+            print("your savings account created succesfully")
+def delete():
+    idi=int(input("enter the id to delete:"))
+    yorn=input("sure you wanna delete your account(y/n):")
+    if yorn=='y':
+        del(d[idi])
+        print("user account with "+idi+" deleted successfuly")
+    else:
+        pass
+def rec_deposit():
+    try:
+        idi=int(input("enter the account no:"))
+        if idi not in d.keys():
+            print("account no. not found")
+            return
+        deposit=int(input("enter the amount to be deposited:"))
+        d[idi]['balance']+=deposit
+        print("updated balance for the account no "+str(idi)+" is "+str(d[idi]['balance']))
+    except ValueError:
+        print("Input correct type of data")
+
+def rec_withd():
+    try:
+        idi=int(input("enter the account no:"))
+        if idi not in d.keys():
+            print("account no. not found")
+            return
+        withdraw=int(input("enter the amount to be withdrawn:"))
+        d[idi]['balance']-=withdraw
+        print("updated balance for the account no "+str(idi)+" is "+str(d[idi]['balance']))
+    except ValueError:
+        print("Input correct type of data")
+def rec_trans():
+    try:
+        idi_add=int(input("enter the account no to which amount is transfered:"))
+        if idi_add not in d.keys():
+            print("account no. not found")
+            return
+        idi_sub=int(input("enter the account no from which amount transfered:"))
+        if idi_add not in d.keys():
+            print("account no. not found")
+            return
+        amount=int(input("enter the amount to transfer:"))
+        d[idi_sub]['balance']-=amount
+        d[idi_add]['balance']+=amount
+        print(str(amount)+" is transfered from account no "+str(idi_sub)+" to account no "+str(idi_add))
+    except ValueError:
+        print("Input correct type of data")
+def check_bala():
+    try:
+        idi=int(input("enter the account no to check the balance:"))
+        if idi not in d.keys():
+            print("account no. not found")
+            return
+        print("The balance for the account no "+str(idi)+" is "+str(d[idi]['balance']))
+    except ValueError:
+        print("Input correct type of data")
+
+def exito():
+    fh1=open("datarecord.txt",'w')
+    for i in d.keys():
+        fh1.write(str(i)+"="+str(d[i])+"\n")
+    fh1.close()
+    
+    
+opt=0
+while(opt<7):
+    with open("datarecord.txt",'r') as fh:
+        lst=fh.readlines()
+        for line in lst:
+            (key, val) = line.split("=")
+            d[int(key)] = ast.literal_eval(val) 
+    fh.close()
+    print("1. Add new Account\n")
+    print("2. Delete an existing Account\n")
+    print("3. Record a deposit\n")
+    print("4. Record a withdrawl\n")
+    print("5. Record a transfer\n")
+    print("6. balance of an account\n")
+    print("7. exit\n")
+    #dicti={1:'add',2:'delete',3:'rec_deposit',4:'rec_withd',5:'rec_trans',6:'check_bala'}
+    opt=int(input("enter the option:"))
+    if opt == 1:
+        add()
+    elif opt ==2:
+        delete()
+    elif opt == 3:
+        rec_deposit()
+    elif opt==4:
+        rec_withd()
+    elif opt==5:
+        rec_trans()
+    elif opt==6:
+        check_bala()
+    elif opt==7:
+        exito()
+        quit;
+    else:
+        quit;
