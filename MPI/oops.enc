@@ -1,0 +1,19 @@
+class MyClass:
+    def __init__(self,x):
+        self.x=x
+        
+    def __add__(self,other):
+        return self.x+ord(other.x[0])
+    def __sub__(self,other):
+        if self.x>ord(other.x[0]):
+            return self.x-ord(other.x[0])
+        else:
+            return ord(other.x[0])-self.x
+    def __mul__(self,other):
+        return ord(other.x[-1])*self.x
+    
+p1=MyClass(10)
+p2=MyClass('anandhu')
+print(p1+p2)
+print(p1-p2)
+print(p1*p2)

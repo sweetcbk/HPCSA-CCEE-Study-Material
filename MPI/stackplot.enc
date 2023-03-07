@@ -1,0 +1,32 @@
+import matplotlib.pyplot as plt
+
+days=[1,2,3,4,5]
+sleeping=[7,8,6,11,7]
+eating=[2,3,4,3,2]
+working=[7,8,7,7,2]
+playing=[8,5,7,8,13]
+
+#in stackplot we cannot give label so to ceate legent use following
+
+plt.plot([],[],color='m', label="sleeping",linewidth=5)
+plt.plot([],[],color='c', label="Eating",linewidth=5)
+plt.plot([],[],color='r', label="Working",linewidth=5)
+plt.plot([],[],color='b', label="Playing",linewidth=5)
+#this doesnot hav label attribute, s indicates size of marker
+plt.stackplot(days,sleeping,eating,working,playing,colors=['m','c','r','b'])
+
+
+
+
+plt.xlabel('plot number')
+plt.ylabel('Important var')
+plt.legend()
+plt.title('This my first in matplotlib graph\nThis is on next line')
+plt.show()
+
+
+
+
+#plt.plot(x,y,label="First line")
+#plt.plot(x1,y1,label="Second Line")
+#plt.legend() #for legend add label in plot method

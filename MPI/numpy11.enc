@@ -1,0 +1,36 @@
+'''To install numpy
+pip3 istall numpy
+
+to istall pip3 on unix(ubantu)
+
+sudo apt-get install python3 -pip
+
+to istall pip3 on unix(centos)
+sudo yum install python3 -pip'''
+
+list1=[1,2,3,4]
+list2=[4,5,6,7]
+print(list1+list2) #concatenate 2 lists
+
+import numpy as np
+a=np.array([1,2,3,4])
+b=np.array([4,5,6,7])
+print(a*b) #prints memberwise multiplication
+print(a+3) # adds 3 in each element of a
+
+arr = np.arange(24).reshape(8,3)
+print("Array : ")
+print(arr)
+print("Dimenssion: ",arr.ndim)
+print("Dimenssion: ",arr.size)
+
+
+
+
+'''
+runfile('D:/classroom/python/test/numpy11.py', wdir='D:/classroom/python/test')
+[1, 2, 3, 4, 4, 5, 6, 7]
+[ 4 10 18 28]
+[4 5 6 7]
+
+'''

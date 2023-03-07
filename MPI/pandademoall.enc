@@ -1,0 +1,48 @@
+import pandas as pd
+#mydata=pd.read_table("http://bit.ly/chiporders")
+print(mydata.head())
+
+#seperator indicates delimiter and header=None indicates file doesnot contains header row
+
+mymoviedata=pd.read_table("http://bit.ly/movieusers",sep="|",header=None)
+print(mymoviedata.head())
+
+
+
+
+
+
+
+#to retreive data from file and put it in dataframe use read_csv
+
+mydata1=pd.read_csv("http://bit.ly/uforeports")
+type(mydata1) #will print dataframe
+
+#to retrieve any one column
+print(mydata1.City)
+print(mydata1["City"]) #or mydata1.City  #don't use dot notation if heading
+#contains a space then . doesnot work use [] notation
+
+#to add new series in dataframe
+mydata1["location"]=mydata1.City + " , "+ mydata1.State
+
+print(mydata1.columns) #to list all the column names
+#To rename the columns in place
+mydata1.rename(columns={'Colors Reported':'Colors_Reported','Shape Reported':'Shape Reported'},inplace=True)
+ufo_cols=['col1','col2','col3','col4']
+mydata1.columns=ufo_cols #replaces all columns by the names in the ufo_cols list
+mydata1.columns=mydata1.columns.str.replace(" ","-") #to convert column names in to string and then use replace function
+mydata1.drop('colors reported', axis=1,inplace=True) #axis=1 says columns axis=0 indicates row
+mydata1.drop(['City','state'])#drop multiple column
+mydata1.drop([0,1],axis=0,inplace=True) #to delete first 2 rows axis=0 indicates row
+print(mydata1.head())
+print(mydata1.head())
+
+
+mydata2=pd.read_csv("http://bit.ly/imdbratings")
+print(mydata2.head())
+mydata2.describe()
+        
+
+
+
