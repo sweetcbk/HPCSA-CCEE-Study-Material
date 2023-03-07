@@ -1,0 +1,58 @@
+Docker Jenkins
+
+1) https://github.com/arunvel1988/docker_web_server
+
+2) poll scm (once every minute)
+
+* * * * *
+
+
+Min(0-59) Hour(0-23) Day of Month(1-31) Month(1-12) Day of Week(0 & 7 both Sunday)
+
+sudo usermod -aG docker jenkins
+
+(Reboot machine)
+
+3) 
+
+docker build -t webserver .
+
+docker run -d --name arun123 -p 3001:8000 webserver
+
+
+
+4) Manage plugins
+
+CloudBees Docker Build and Publish Plugin
+
+https://github.com/arunvel1988/docker_web_server
+
+5) Docker Build and Plugin
+
+ give your repository link where docker file is there.
+
+
+Repository name = arunvel1988/c1
+
+
+Registry credentials
+
+username = arunvel1988
+password = *****
+
+
+Docker Registry URL = https://index.docker.io/v1/
+
+6) 
+
+
+Docker pipeline
+
+
+https://github.com/arunvel1988/NodeApp
+
+
+
+
+
+

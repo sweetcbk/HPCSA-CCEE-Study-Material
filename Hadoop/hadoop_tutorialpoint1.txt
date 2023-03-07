@@ -1,0 +1,151 @@
+
+
+Q 1 - Which of the following is true for disk drives over a period of time?
+A - Data Seek time is improving faster than data transfer rate.
+B - Data Seek time is improving more slowly than data transfer rate.
+C - Data Seek time and data transfer rate are both increasing proportionately.
+D - Only the storage capacity is increasing without increase in data transfer rate.
+
+
+Answer : B
+
+
+ Hide Answer
+
+
+
+
+Q 2 - The main goal of HDFS High availability is 
+A - Faster creation of the replicas of primary namenode.
+B - To reduce the cycle time required to bring back a new primary namenode after existing primary fails.
+C - Prevent data loss due to failure of primary namenode.
+D - Prevent the primary namenode form becoming single point of failure.
+
+
+Answer : B
+
+
+ Hide Answer
+
+
+
+
+Q 3 - Which scenario demands highest bandwidth for data transfer between nodes in Hadoop?
+A - Different nodes on the same rack
+B - Nodes on different racks in the same data center.
+C - Nodes in different data centers
+D - Data on the same node.
+
+
+Answer : C
+
+
+ Hide Answer
+
+
+
+
+Q 4 - Which of the below property gets configured on core-site.xml ?
+A - Replication factor
+B - Directory names to store hdfs files.
+C - Host and port where MapReduce task runs.
+D - Java Environment variables.
+
+
+Answer : B
+
+
+ Hide Answer
+
+
+
+
+Q 5 - Which of the below apache system deals with ingesting streaming data to hadoop
+A - Ozie
+B - Kafka
+C - Flume
+D - Hive
+
+
+Answer : C
+
+
+ Hide Answer
+
+
+
+
+Q 6 - Running Start-dfs.sh  results in
+A - Starting namenode and datanode
+B - Starting namenode only
+C - Starting datanode only 
+D - Starting namenode and resource manager
+
+
+Answer : A
+
+
+ Hide Answer
+
+
+
+
+Q 7 - The data from a remote hadoop cluster can
+A - not be read by another hadoop cluster
+B - be read using http
+C - be read using hhtp
+D - be read suing hftp
+
+
+Answer : D
+
+
+ Hide Answer
+
+
+
+
+Q 8 - The number of tasks a task tracker can accept depends on
+A - Maximum memory available in the node
+B - Not limited
+C - Number of slots configured in it
+D - As decided by the jobTracker
+
+
+Answer : C
+
+
+ Hide Answer
+
+
+
+
+Q 9 - Can you run Map - Reduce jobs directly on Avro data?
+A - Yes, Avro was specifically designed for data processing via Map-Reduce.
+B - Yes, but additional extensive coding is required.
+C - No, Avro was specifically designed for data storage only.
+D - Avro specifies metadata that allows easier data access. This data cannot be used as part of map-reduce execution, rather input specification only.
+
+
+Answer : A
+
+
+ Hide Answer
+
+
+
+
+Q 10 - Which of the following are among the duties of the Data Nodes in HDFS?
+A - Maintain the file system tree and metadata for all files and directories.
+B - None of the options is correct.
+C - Control the execution of an individual map task or a reduce task. 
+D - Store and retrieve blocks when told to by clients or the NameNode.
+E - Manage the file system namespace. 
+
+
+Answer : D
+
+
+ Hide Answer
+
+

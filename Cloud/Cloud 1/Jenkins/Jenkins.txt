@@ -1,0 +1,323 @@
+Jenkins
+
+1) Make sure
+
+You need to have a JDK and JRE installed. openjdk-7-jre and openjdk-7-jdk are suggested
+
+
+2) wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+
+
+3) 
+
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+4) 
+
+sudo apt-get update
+
+
+5)
+
+sudo apt-get install jenkins
+
+6)
+Log File will be placed at
+
+/var/log/jenkins/jenkins.log
+
+
+7)
+
+nano /etc/default/jenkins
+
+HTTP_PORT=8080
+
+change port number according to your organization
+
+
+8)
+
+localhost:8080
+
+
+Install Jenkis Git Plugins
+
+9) 
+
+New Item
+
+Enter Item Name
+
+i) Free Style Project
+
+ii) GitHub Project 
+
+iii) SCM
+
+iv) Build execute shell
+
+v) save
+
+
+
+10) 
+
+
+
+docker run \
+  -u root \ 
+  --rm \ 
+  -d \ 
+  -p 8080:8080 \ 
+  -p 50000:50000 \ 
+  -v jenkins-data:/var/jenkins_home \ 
+  -v /var/run/docker.sock:/var/run/docker.sock \ 
+  jenkinsci/blueocean 
+
+
+
+11) Gmail notification
+
+
+SMTP server = smtp.gmail.com
+
+Username = aryan.arunachalam@gmail.com
+
+password  = gmail_password
+
+SMTP Port = 465
+
+check box = use SSL
+check box = use SMTP Authentication
+
+telnet smtp.gmail.com 465              (ssl)
+
+telnet smtp.gmail.com 567  (tls)
+
+
+google less secure apps
+
+
+
+11.5) Manage Jenkins
+Global Tool Configuration
+
+Add Maven
+jenkins-maven
+
+
+
+
+12)
+
+
+
+git clone https://github.com/arunvel1988/arun-maven-sample
+
+
+Integrate Maven Plugin
+Integrate Git Plugin
+
+
+13)
+
+New Item = arun
+
+
+
+Build
+
+jenkins-maven
+
+-B -DskipTests clean package
+
+jenkins-maven
+
+test
+
+execute shell
+
+java -jar /var/jenkins_home/workspace/arun-maven-demo/target/.jar
+
+
+
+14)
+
+Post-build Actions
+
+Publish Junit test result report
+
+
+Test report XMLs target/surefire-reports/*.xml
+
+
+
+
+15)
+
+Archive the artifacts
+
+Files to artifacts
+
+target/*.jar
+
+
+
+
+
+
+16)
+
+
+ngrok zip
+
+
+unzip ngrok.zip
+
+
+ngrok authtoken -----
+
+
+
+ngrok help
+
+ngrok http 80
+
+
+17)
+
+Github Webhook
+
+
+
+
+a) Go to your project repository.
+b) Go to "settings" in the right corner.
+c) Click on "webhooks."
+d) Click "Add webhooks."
+e) Write the Payload URL as
+
+https://your-public-ip/github-webhook/
+
+
+
+18)
+
+
+a) Go to Manage Jenkins -> Configure System
+b) Scroll down and you will find the GitHub Pull Requests checkbox. In the c) Published Jenkins URL, add the repository link
+d) Click on "Save."
+
+
+
+19)
+
+GitHub hook trigger for GITScm polling
+
+20)
+
+
+Cobertura
+
+Code Coverage Report
+
+maven version  = maven
+
+goals = cobertura:cobertura -Dcobertura.report.format=xml
+
+
+
+
+21)
+
+publish cobertura coverage report
+
+**/target/site/cobertura/coverage.xml
+
+
+
+22)
+
+Jenkins User
+
+sudo su - jenkins
+
+23)
+
+Maven - Build Tool (Java)
+
+Compile - Test - Package - Deploy
+
+24)
+
+Open Source Enterprise Repository Manager
+Nexus (Sonatype)
+Artifactory (JFrog)
+
+
+25)
+Jenkins Security
+
+i) Matrix Based Security 
+ii) config.xml (/var/lib/jenkins)   === useSecurity (true ) make it false
+
+26) 
+Keeping a watch on what users are doing in jenkins
+Audit Trail Plugin
+Job Config History
+
+
+Instant Messaging with Jabber
+
+OpenFire (Java Based Open Source Chat Server) for instant messaging
+
+27) 
+Jenkins DSL Plugin
+
+
+Job DSL Plugin (Jenkins)
+
+
+
+
+Seed job is a job that creates a new job.
+Seed job is the parent job of all jobs that are being created
+
+
+
+Build  --> Use the provided DSL script 
+
+job('arun-dsl') {
+  steps {
+     shell ('echo Hello World')
+  }
+}
+
+	
+
+28)
+
+Jenkins Pipeline Plugin
+
+
+Install Pipeline Plugin
+
+
+
+
+
+29)
+
+
+Distributed Build
+
+
+Jenkins Master-Slave
+
+1) Start slave agent via ssh
+2) Start slave agent manually using Java Web Start
+3) Installing slave agent as windows service
+4) starting slave machine directly from command line
+
+30)

@@ -1,0 +1,7 @@
+apk update 
+
+apk add apache2
+
+rc-service apache2 start 
+
+sudo apt install iptables-persistent -y

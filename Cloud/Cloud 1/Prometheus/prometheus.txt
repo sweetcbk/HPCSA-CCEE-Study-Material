@@ -1,0 +1,44 @@
+1)tar -xzf prome
+
+2) cd prom
+
+3) ./prom
+
+localhost:9090
+
+4) tar -xzf node-exporter
+
+localhost:9100
+
+5) ./node-exporter
+
+6) tar -xzf graphana
+
+./bin/graphana-server
+
+localhost:3000
+
+7)
+dashboard= 11074
+dashboard = 10645
+dashboard = 1860
+dashboard = 405
+
+dashboard with cadvisor = 193
+
+
+8) 
+
+
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest
+
+

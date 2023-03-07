@@ -1,0 +1,234 @@
+cheat sheet for FCNM:
+
+1.switch: Connect devices in a LAN.
+2. Router: Connect devices between two LANs.
+3. Intranet : LAN or internal operations.
+   Internet : WAN opertions.
+4. IPv4 : 32 bit/ 4 byte address, total IP's: 2^32=4.3 billion, 5 classes A,B,C,D,E
+An IP belongs to one of the classes if its first octet has ranges:  
+Class A = 1 to 126      constant bits(from L to R): 0   subnet mask: /8   networks: 7(2^7)=128    Hosts: 24(2^24)=1.6 crores
+Class B = 128 to 191               10                        /16              14(2^14)=16,384         16(2^16)=65,536
+Class C = 192 to 223               110                       /24              21(2^21)=21L             8(2^8)=128
+Class D = 224 to 239              1110
+Class E = 240 to 255              1111
+5. IPv6: 128 bit/ 16 byte address, total IP's: 2^128=3.4 trillion 
+6. Network Address: signifies start of any network. Used by Routers. All Host bits are made "ZERO".
+   Broadcast Address: Signifies end of any network. All Host bits are made "ONE".
+   To calculate number of devices can accomodate in a given network = 2^(Host bits) - 2 (2 subtracted because the network and broadcast address cannot be given to any device)
+   eg: 10.10.10.10/8 : Host bits = 24, Network bits = 8
+       network Address : 10.0.0.0
+       broadcast Address: 10.255.255.255
+       Number of devices = 2^24 - 2 
+7. Classfull : Alloting the subnet mask based on the class (A=/8,B=/16,C=/24)
+   Classless : Alloting subnet mask irrespective with the class (/27,/28)
+8. Subnetting : Concept of dividing huge network into smaller sub networks. The subnet mask of newly subnetted IP should be more than previous IP.
+9. Subnet Mask : /x means there are x network bits and 32 - x host bits. x ones are given from right to left.
+eg: /18, network bits N= 18 and host bits H= 32-18 = 14. eight 1's. eight 1's. two 1's. zero 1's = 255.255.255.192
+10. Subnetting via Host :- 
+eg: 10.0.0.0/24 subnetted via host to accomodate 30 devices
+step 1: Add 2 to number of devices 30 + 2 = 32
+step 2: write subnet mask detailed  network bits = 24(N), host bits = 8(H) written as N.N.N.H.
+step 3: Check in what power of 2 the added number can be divisible here 32= 2^5 so new host bits = 5
+step 4 : Allocate host bits from Right to Left N(8).N(8).N(8).NNNHHHHH . New network bits N= 27, new Host bits =5
+step 5 : to calculate network address keep all H's Zero = 10.0.0.0 for broadcast keep H's One = 10.0.0.31
+   solution: new network : 10.0.0.0/27
+              new network address: 10.0.0.0/27 
+             new broadcast address : 10.0.0.31/27 
+11.Subnetting via Network :-
+eg: 10.10.10.0/24 into 4 networks 
+step 1: 4 = 2^2 then Additional Network Bits = 2 now total number bits = 24+2 = 26
+step 2: counting of additional network bits should start from left to right written ad N(8).N(8).N(8).NNHHHHHH/26
+step 3: The host bits = 6 the difference between two networks is 2^6 =64
+step 4: NA0=10.10.10.0/26   BA0=10.10.10.63/26
+        NA1=10.10.10.64/26  BA1=10.10.10.127/26
+        NA2=10.10.10.128/26 BA2=10.10.10.191/26
+        NA3=10.10.10.192/26 BA3=10.10.10.255/26
+12. If the number of networks is in the power of 2 it is called Fixed Length Subnet Mask. All the networks have same subnet mask.
+13. Given an IP address 1)16.10.10.99/27 2)16.10.10.96/27 3)16.10.10.95/27 determine whether they are a normal IP address or broadcast or network address ?
+    1)16.10.10.99/27 Here Network bits N =27 ,Host bits H = 32-27 = 5
+       2^5 = 32)99(3----->represents which network it belongs so given IP belongs to n3 
+                96
+                --
+                 3------->represents the network number from near network address
+   conclusion: given IP is a normal IP address and is the third network in the network of N3.
+    2) 16.10.10.96/27 HERE 96 is exactly divisible by 32 with 3 so the given IP is a network address of network 3.
+    3) 16.10.10.95/27 here the remainder is 31 which is 32-1 so the given IP is the broadcast address of network 2
+                    32)95(2---------->represents the network 
+                       64
+                       --
+                       31
+14. Given IP 192.168.1.58 and subnet 255.255.255.240 find the original network range its network address and broadcast address
+    so the IP can be written as 192.168.1.58 = 192.168.1.0011|1010
+                             255.255.255.240=255.255.255.1111|0000															take the block in the IP which doesnot have 1's under it in the above case it is 1010.
+                To make an network address make it 0's so last octet 00110000 becomes 48 and to get broadcast address make it 1's last octet is 00111111=63 and the number of devices we can make it is 64-48-2=14 devices
+          network address = 192.168.1.48/28
+          broadcast address=192.168.1.63/28 																
+15. VLSM (Variable Length Subnet mask):
+    Instead of subnetting through network in the powers of 2 like 2 n/w or 8 n/w     the VLSM help us to subnet at the figures of 3,5,7...... so on.
+    Eg: to get 3 networks with the network address 10.10.10.0/24 the network is        divided into 127,63,63 with 0,10,11 as additional network bits.
+    NA0=10.10.10.0  /25
+    BA0=10.10.10.127/25
+    NA1=10.10.10.128/26
+    BA1=10.10.10.191/26
+    NA2=10.10.10.192/26
+    BA2=10.10.10.255/26
+    In case of 5 networks the bits are as 00,01,10,110,111 ie., 63,63,63,31,31     (/26,/26,/26,/27,/27)
+16. Concept of Supernetting:
+    Supernetting is the reverse of subnetting. It is also called as route aggregation or route summarization. Here we combine smaller networks into one bigger network. The original subnet mask before supernetting should be larger than calculated calculated subnet mask.
+Eg: 192.168.10.0/24 - for 10- 00001|010
+    192.168.11.0/24 - for 11- 00001|011
+    192.168.12.0/24 - for 12- 00001|100
+    192.168.13.0/24 - for 13- 00001|101
+    the bits which are constant in all the networks is 00001 which is 8 
+    so the ip address is 192.168.8.0
+    the subnet mask is calculated as the the total number of common bits which are     16+5=21 so 192.168.8.0/21 is the supernetted IP address.
+17. Command list for configuring switch:(we use mostly 2960 and 3560(L3) switches)
+switch > (normal user mode)
+switch > enable
+switch # (privilege mode)
+switch # configure terminal
+switch (config)# (entered into global configuration mode)
+switch (config)# hostname hpc
+hpc (config)# do write (save the previous cnfigurations to the startup configuration)(make it a habit of doing this after step of commands)
+hpc (config)# exit (to exit from present mode) or CTRL+Z
+hpc # show flash (status of flash memory)
+hpc # dir nvram (status of nv ram where startup configuartion is stored)
+hpc # show version(version of IOS-Internetwork Operating System)
+hpc # write (same as do write but in the privilege mode)
+hpc # show running-config (show the commands till we executed)
+hpc # show startup-config (show the commands till the last write command is used)
+18. How to connect a PC and the switch ? using RS232 cable connect rs232 port in pc using console cable(sky blue) to console port in the switch.
+19. Password protection for switches:
+    Password can be set from going into two modes    
+    1. from usermode to privilege mode:
+   	(config) # enable password xxxxxx (this is visible of someone type )
+   	(config) # enable secret xxxxx (password will be encrypted)
+    2. To get into usermode through console connection:
+   	(config) # username hpc password xxxxx
+   	(config) # username hpc secret xxxxx
+   	(config) # line console 0
+   	(config) # login local
+20. How to know password if you forget the password of switch:
+    (config) # reload (and press CTRL + C to stop the process)
+    romon1 > confreg 0X2142
+    romon2 > reset
+21. IPV6 Address:
+    16 byte address or 128 bit ,Hexadecimal number supports 340 trillion devices. [0-9,A-E] each called HEXTET. Here network part is 64 and Host part is 64.
+    Rules to shorten IPV6 Address:
+    1. Leading zeros can be optional. 2001:0001:0002 = 2001:1:2
+    2. If the address have consecutive zeros represent with double colon. 2001:0000:0000:0000:1234 = 2001::1234 . No more than one double colon in the address.
+    MAC Address: A 48 bit ot 6 byte address also called as physical or hardware address.
+    Extended Unique Identifier (EUI) : concept of assigning IPV6 address by host machine using its own MAC address. Adding FFFE after the sixth position in the MAC address make it 64 bit IPV6. Also the seventh bit from the left hand side of MAC is inverted giving the IPV6 Address from the MAC Address.
+Eg: My mobile MAC = 7423:4439:681F
+    Add "FFFE"= 7123:44FF:FE39:681F
+    Invert seventh bit 7 0001 = 7 0101 =7 5
+    IPV6 is 7523:44FF:FE39:681F 
+22. IP Routing:
+    Golden Rules of Routing:
+    1. The two interfaces of same router should be in different networks.
+    2. The connection between two routers should belong to same network.
+    IP routing basically does three things:
+    1. It learns information about all the network
+    2. It learns information about all the paths to reach a particular network.
+    3. It selects the best route from the available paths.
+23. Static Routing: Every router has routing table and constantly update it. First to do static routing we should check the networks which are interfaced to the router     and route to networks which are not in the routing table.
+    R1(config-if) # ip route <destination network address> <destination subnet> <destination gateway IP> (routing path)
+    This should be given to all the routers in the network.
+24. To connect same devices like router to router and switch to switch : use crossover cables
+    To connect different devices like router to switch, viceversa      : use straight through cables
+25. Commands to configure router(2911):
+    R1(config) # interface gigabitethernet 0/0
+    R1(config-if) # ipaddress <ipaddress> <subnet mask> (to give ip address to that particular interface of the router)
+    R1(config-if) # no shutdown                         (to keep the interface always awake)
+    R1(config-if) # ip route <destination network address> <destination subnet> <destination gateway IP>
+    R1 # show ip interface brief                        (to display alloted IP addresses)
+    R1 # copy running-config startup-config             (same as write and do write)
+    R1 # show ip route                                  (to see the routing table)
+    R1 # no ip route <destination network address> <destination subnet> <destination gateway IP> (to remove an ip route)
+    note : Dont forget to give the default gateways to all the devices in the network. The gateway address is the ip address of the interface of router to which the     network is connected.
+26. Dynamic Routing : The routing protocols learn about the network by itself. Removes the hectic of work of routing commands to each router in the network.
+    commands for RIP protocol: In RIP we give the router about the information of which networks it was connected, automatically it prepares routing table for the         networks which it doesnt have.
+    R1(config) # router rip
+    R1(config) # network <network address 1 for the network it was connected> 
+    R1(config) # network <network address 2 for the network it was connected> 
+27. VLAN:  
+    commands for vlan configuration : 
+    switch # show vlan (show the vlans)
+    switch(config) # vlan ? (vlans information)
+    switch(config) # vlan 10(to create vlan 10)
+    switch(config) # name hpcsa(give name to the vlan)
+    To connect switch to pc or laptop in VLAN configuration(access mode):
+    switch(config) # interface fastethernet 0/10(portnumber to which PC is connected)
+    switch(config-if) # switchport access vlan 10(VLAN number)
+    switch(config-if) # switchport mode access 
+    To connect switch to switch (Trunk mode):
+    switch(config) # interface fastethernet 0/1(port number to which another switch is connected)
+    switch(config-if) # switchport trunk encapsulation dot1q
+    switch(config-if) # switchport mode trunk
+    To connect two VLAN's we use a router, to configure it:
+    R1(config) # interface gigabitethernet 0/0.10 (0/0 is the port router is connected and 10 is VLAN number)
+    R1(config-subif)# encapsulation dot1q 10
+    R1(config-subif)# ip address 10.0.0.254 255.255.255.0 (10.0.0.254 is the gateway address for all the vlan 10 devices)
+    R1(config-subif)# no sh (to keep port awake)
+    Same should be done for all the vlans 
+    note : Later the trunk should be done for the router and the switch
+28. VLAN trunking protocol (VTP): VTP helps to connect hundred of switches with VLAN, it is a protocol. Configuring one by one switches to set up VLAN is a hectic        process so using VTP one switch was made VTP server and all other are clients, changes or configuring the VLAN in that server will sync it with all other clients.     Other mode called transperant in which they have locally created VLANS.
+    switch # show vtp status (to check the vtp status)
+    At VTP server/switch:
+    switch(config) # vtp domain hpcsa
+    switch(config) # vtp mode server
+    switch(config) # vlan 500
+    switch(config) # name vlan1
+    switch(config) # vlan 600
+    switch(config) # name vlan2
+    For clients:
+    switch(config) # vtp mode client (or) (to make it a client)
+    switch(config) # vtp mode transparent (to make it a transperant)
+    note : DO trunk between all the switches
+29. Dynamic Host Control Protocol(DHCP): Automatic IP address allocation to a device. Works as DORA Discover Offer Request Acknowledgement. The default IP of any     router before IP allocation is 0.0.0.0.
+    Configuring DHCP on a router:
+    router(config) # ip dhcp pool hpcsa
+    router(dhcp-config) # network 192.168.10.0 255.255.255.0
+    router(dhcp-config) # dns-server 8.8.8.8
+    router(dhcp-config) # default-router 192.168.10.10
+30. Port no.	service
+	80	HTTP
+	443	HTTPS
+      20,21	FTP
+	25	SMTP
+	22	SSH
+	23	TELNET
+      67,68	DHCP
+	53	DNS
+      3306	MY SQL
+31. Switch virtual Interface : Process of making L3 switch(3560) to do routing and switching. Creating virtual interface which has gateway IP. Perform access mode commands before the following commands.
+commands:
+(config) # ip routing
+(config) # interface vlan 10
+(config-if) # ip address <gateway Ip> <subnet mask>
+(config-if) # no sh
+ same to do for other VLAN's
+32. Link aggregation protocol : To make work all the links between two switches avoiding the STP protocol.
+switch(config) # hostname LACP
+switch(config) # interface range fastethernet 0/1-7
+(config if range) # channel-group 1 mode active(for other switch use the passive)
+switch(config) # interface port-channel 1 (if more than one pair of switches give different numbers)
+  (config-if)  # switchport trunk encapsulation dot1q
+   (config-if) # switchport mode trunk    
+33. Access Control List (ACL): Helps to avoid the packets coming from a particular network. Two types of ACL one is standard, not allowing from a particular network and second is the extended, where controlling the packets of a particular type and also particular network. Take an example of three networks 10, 20, 30. Perform routing to all the networks. In this example 10 network was not allowed only 20 network allowed to 30 network. We create a ACL at the router at 20 and 30 networks. Commands performed at this router are:
+Standard:-
+(config)# ip access-list standard 10 (anynumber from 1 - 99)
+(config-std-nacl)# permit 20.0.0.0 0.0.0.255 (wildcard bits is the subtraction of 255.255.255.255 and the original subnet mask)
+(config-std-nacl)# exit
+(config)# interface gigabitethernet 0/0 (interface where you need to control)
+(config)# ip access-group 10 in
+(config)# no ip access-list standard 10 (remove the access list)
+(config)#  no ip access-group 10 in
+Extended:-
+(config)# ip access-list extended 150 (any number from 100-199)
+(config-std-nacl)# permit tcp 10.0.0.0 0.0.0.255 host 30.0.0.2 eq 80 (destination ip address where u want to allow and port number of tcp is 80, if dns then it is udp and 53)
+(config-std-nacl)# exit
+(config)# interface gigabitethernet 0/0
+(config)# ip access-group 150 in
+(config)# no ip access-list extended 150
+(config)# no ip access-group 150 in 
