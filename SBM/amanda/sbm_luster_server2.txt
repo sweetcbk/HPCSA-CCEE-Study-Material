@@ -1,0 +1,36 @@
+    1  ip a
+    2  yum update -y
+    3  systemctl status firewalld
+    4  vi /etc/selinux/config 
+    5  setenforce 0
+    6  init 6
+    7  hostname
+    8  nmtui
+    9  ip a
+   10  vi /etc/hosts
+   11  ssh-keygen 
+   12  ssh-copy-id sbm
+   13  ssh-copy-id sbm1
+   14  ssh-copy-id sbm2
+   15  yum update
+   16  cd /etc/yum.repos.d/
+   17  ls
+   18  mv lustre-repo.conf lustre.repo
+   19  yum repolist
+   20  yum --nogpgcheck --disablerepo=* --enablerepo=e2fsprogs-wc install e2fsprogs
+   21  ip a
+   22  init 6
+   23  yum --nogpgcheck --disablerepo=* --enablerepo=e2fsprogs-wc install e2fsprogs
+   24  yum -y install http://download.zfsonlinux.org/epel/zfs-release.el7_4.noarch.rpm
+   25  yum update perl
+   26  yum --nogpgcheck --disablerepo=base,extras,updates --enablerepo=lustre-server install kernel kernel-devel kernel-headers kernel-tools kernel-tools-libs kernel-tools-libs-devel --skip-broken
+   27  yum install  kernel-devel.x86_64 0:3.10.0-1062.1.1.el7_lustre 
+   28  yum install kernel-tools-libs-devel.x86_64 0:3.10.0-1062.1.1.el7_lustre
+   29  yum --nogpgcheck --disablerepo=base,extras,updates --enablerepo=lustre-server install kernel kernel-devel kernel-headers kernel-tools kernel-tools-libs kernel-tools-libs-devel --skip-broken
+   30  yum --nogpgcheck --enablerepo=lustre-server install kmod-lustre kmod-lustre-osd-ldiskfs lustre-osd-ldiskfs-mount lustre lustre-resource-agents
+   31  history >> lustre_server2
+   32  ip a
+   33  modprobe -v lustre
+   34  lctl network configure
+   35  lctl ping 192.168.253.179
+   

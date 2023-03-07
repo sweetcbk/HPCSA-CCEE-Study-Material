@@ -1,0 +1,43 @@
+SERVER1&2=master
+
+yum --nogpgcheck --disablerepo=* --enablerepo=e2fsprogs-wc install e2fsprogs
+
+yum -y install http://download.zfsonlinux.org/epel/zfs-release.el7_4.noarch.rpm
+
+yum update perl
+
+yum --nogpgcheck --disablerepo=base,extras,updates --enablerepo=lustre-server install kernel kernel-devel kernel-headers kernel-tools kernel-tools-libs kernel-tools-libs-devel --skipbroken
+
+
+yum --nogpgcheck --enablerepo=lustre-server install kmod-lustre kmod-lustre-osd-ldiskfs lustre-osd-ldiskfs-mount lustre lustre-resource-agents
+
+reboot
+
+modprobe -v lustre
+
+lustre_rmmod
+
+uname -a
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CLIENT
+
+yum install kernel kernel-devel kernel-headers kernel-abi-whitelists kernel-tools kernel-tools-libs kernel-tools-libs-devel
+
+reboot
+
+yum install epel-release
+
+yum --nogpgcheck --enablerepo=lustre-client install lustre-client-dkms lustre-client
+
+
+yum --nogpgcheck --enablerepo=lustre-client install kmod-lustre-client lustre-client
+
+modprobe -v lustre
+
+
+lustre_rmmod
+
+
+
