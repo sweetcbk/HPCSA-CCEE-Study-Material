@@ -1,0 +1,401 @@
+                                                       
+                                                              Perl Assignments
+
+1. Write a program to accept an input string from the user and toggle the character cases.For example, $str=” Hello How Are You?”
+a.O/p : hELLO hOW aRE yOU?
+b.print "enter the string";
+
+->$str=<>;
+chomp($str);
+foreach $char(split('',$str))
+{
+if($char eq uc($char))
+{
+print lc($char);
+}
+else{
+print uc ($char);
+}
+}
+
+-------------------------------------------------------------------------------------------------------
+
+2.Write a program to remove all the vowels from the given string and reverse the string.
+a.Write a program to count the occurrences of one string in the given string.
+b.For example, String 1=”How is she. Did she call u. She looks after the sheep?” String 2=”She”
+O/p : (she is repeated 3 times)
+->print "Enter the string\n";
+$str=<>;
+chomp($str);Write a program to accept an input string from the user and toggle the character cases.
+@arr=();
+foreach $s(split('',$str))
+{
+        if ($s eq "a" || $s eq "e" || $s eq "i"|| $s eq "o"|| $s eq "u")
+        {
+                next;
+        }
+
+push(@arr,$s);
+}
+$str=reverse(join('',@arr));
+print "$str\n";
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+3.Write a program to count the occurrences of one string in the given string.
+a.For example, String 1=”How is she. Did she call u. She looks after the sheep?” String 2=”She”
+b.O/p : (she is repeated 3 times)
+c.print "enter the string\n";
+
+->$str1=<>;
+print "enter the pattern to search\n";
+$pat=<>;
+chomp($str1,$pat);
+$len=length($str1);
+$opt=index($str1,$pat);
+$count=0;
+while($opt!=-1){
+$opt=index($str1,$pat,$opt+1);
+$count+=1;
+}
+print "$count";
+---------------------------------------------------------------------------------------------------------------------------
+
+4.Menu Options:
+1.Login (Can be three types of users: Admin, user, guest)
+2.Exit (Ends the program)
+If the user is an Administrator, the operations performed should be:
+a.Add a new user 
+b.Delete a user
+c.Change the user password
+d.Change the Admin Password Logout (Takes to the main menu)
+For a guest user, only the Logout (Takes to the main menu) option is visible. However, if the user is a normal user, the following operations should be allowed.
+a.Change Password (should ask for previous password, new password and confirm password)
+b.Logout (Takes the user to the main menu)
+
+->do{
+print "Menu\n";
+print "1. Login\n";
+print "2. Exit\n";
+$n=<>;
+%main=(Admin=>"admin");
+if($n==1)
+{
+        print "Logged in as:Admin,user or guest\n";
+        $u=<>;chomp($u);
+        if($u eq "Admin")
+        {
+
+                do
+                {
+                        print "1.Add a new user\n";
+                        print "2.Delete a user\n";
+                        print "3.change the user password \n";
+                        print "4.change the admin password \n";
+                        print "5.Logout\n";
+                        $ch=<>;
+                        if($ch==1)
+                        {
+                                print "enter the user name\n";
+                                $name1=<>;
+                                print "enter the user password\n";
+                                $pass1=<>;
+                                chomp($name1,$pass1);
+                                $main{$name1}=$pass1;
+                                print "User added\n";
+                        }
+                        elsif($ch==2)
+                        {
+                                print "Enter the user name to delete\n";
+                                $name1=<>;
+                                chomp($name1);
+                                delete($main{$name1});
+                                print "user deleted\n";
+                        }
+                        elsif($ch==3){
+                                print "enter the user name to change password\n";
+                                $ur=<>;print "enter the password to change\n";
+                                $pass=<>;chomp($ur,$pass);
+                                $main{$ur}=$pass;
+                                print "password changed for $ur\n";}
+                        elsif($ch==4){
+                                print "Enter the password for Admin\n";
+                                $admpas=<>;
+                                chomp($admpas);
+                                $main{Admin}=$admpas;
+                                print "Admin password changed\n";
+                                }
+                        else{                             laast;     }
+
+}while($ch != 5);
+        }
+elsif($u eq "user"){
+print "1.change password\n";
+print "2.logout\n";
+$opti=<>;
+if($opti == 1){
+print "enter the username to change password\n";
+$usrn=<>;
+print "enter the previous password\n";
+$pass1=<>;
+chomp($usrn,$pass1);
+if ($pass1 eq $main{$usrn}){
+print "enter the new password:\n";
+$newpass=<>;chomp($newpass);
+$main{$usrn}=$newpass;}
+else{ print "password incorrect\n";}
+
+}
+else { laast;}
+}
+else {
+print "1. logout\n";
+$opt2=<>;
+if ($opt2 == 1){laast;}
+}
+}}while($n != 2);
+
+-------------------------------------------------------------------------------------------------------------------
+5.Use the package in a program and apply the functions on two array variables (say a and b) to:
+a.Add two arrays (and store it in 
+b. Subtract two arrays(and store it in d)
+c.Find the minimum and maximum value of the resultant array (c or d) 
+
+
+->require "mypack.pl";
+print "enter the length of arrays\n";
+$n=<>;
+$i=0;
+@a=();
+@b=();
+print "enter the elements to first array\n";
+while($i<$n){
+$n1=<>;
+chomp($n1);
+push(@a,$n1);
+$i=$i+1;
+}
+$i=0;
+print "enter the elements of second array\n";
+while($i<$n){
+        $n1=<>;
+        chomp($n1);
+        push(@b,$n1);
+        $i=$i+1;
+}
+@c=mypack::addarray($n,\@a,\@b);
+@d=mypack::subarray($n,\@a,\@b);
+$max=mypack::max($n,\@c);
+$min=mypack::min($n,\@c);
+@sorti=mypack::compare_sort(\@c);
+print "added array c: @c\n";
+print "subtracted array d: @d\n";
+print "max of array c:$max\n";
+print "min of array c:$min\n";
+print "sorted array of c:@sorti\n";
+
+Packages:-
+
+package mypack;
+sub addarray{
+my ($n,$a,$b)=(shift,shift,shift),
+my $i=0;
+my $num1;
+my @c=();
+while($i<$n){
+        $num1=$a->[$i]+$b->[$i];
+        push(@c,$num1);
+        $i=$i+1;
+}
+return @c;
+}
+sub subarray{
+my ($n,$a,$b)=(shift,shift,shift),
+my $i=0;
+my $num1;
+my @c=();
+while($i<$n){
+        $num1=$a->[$i]-$b->[$i];
+        push(@c,$num1);
+        $i=$i+1;
+}
+return @c;
+}
+sub max{
+my ($n,$a)=(shift,shift);
+my $i=0;
+my $maxi =$a->[1];
+while($i<$n){
+if($a->[$i]>$maxi){
+$maxi=$a->[$i];
+}
+$i=$i+1;
+}
+return $maxi;}
+sub min{
+my ($n,$a)=(shift,shift);
+my $i=0;
+my $mini =$a->[1];
+while($i<$n){
+if($a->[$i]<$mini){
+$mini=$a->[$i];
+}
+$i=$i+1;
+}
+return $mini;}
+sub compare_sort
+{
+$item=shift;
+@item=sort {$a <=> $b} @{$item};
+return @item;
+
+}
+return 1;
+--------------------------------------------------------------------------------------------------------
+6.Create two similar sequential files, take differences between the two files. Also, differences wherever differences occur.
+their names as input. Find out the print the file name, line no., and the
+
+->print "enter the first file:\n";
+$fil1=<>;
+print "enter the second file:\n";
+$fil2=<>;
+chomp($fil1,$fil2);
+open(fn,"<","$fil1");
+open(fn1,"<","$fil2");
+my $line=1;
+while(my $line1=<fn>)
+{
+my $line2=<fn1>;
+if($line1 ne $line2){
+print "$fil1:$line1 at line number $line\n";
+print "$fil2:$line2 at line number $line\n";
+}
+$line+=1;
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+
+7.Copy a text file into another by toggling the case of each letter from the source file. ( All capital letters from source file should become small case in the target file and vice versa)
+
+->open(fn,"file.txt");
+open(fn1,">","file1.txt");
+while($char= getc fn){
+if($char eq uc($char)){
+$char1=lc($char);
+print fn1 "$char1";
+}
+else{
+$char1=uc($char);
+print fn1 "$char1";
+}
+}
+close(fn);
+close(fn1);
+-------------------------------------------------------------------------------------------------------------------
+8.Write a program to accept employe information Employee_name, designation, salary store it in file empdata.dat
+Create a package employeepack.pl add following functions in to the package
+findEmp – to find employee based on empno
+findempList
+The function accepts designation as parameter and display all employees with the given designation
+addEmp – add employee at the end of file
+displayall – will display all employees
+ise thes package in program testemp.pl
+Write a menu driven program to do the following
+1.add employee
+2.find by empid
+3.find by designation
+4.Display all
+5.exit
+
+
+->sub displayall(){
+$displayall->execute();
+while(@arr=$displayall->fetchrow_array()){
+print "$arr[0].......$arr[1]........$arr[2]........$arr[3]\n";
+}
+
+}
+sub displayById($){
+
+$i=shift;
+$sbyid->execute($i);
+while(@arr=$sbyid->fetchrow_array()){
+print "$arr[0].........$arr[1]........$arr[2]........$arr[3]\n";
+}
+}
+
+sub displayBydesg($){
+
+$i=shift;
+$sbydes->execute($i);
+while(@arr=$sbydes->fetchrow_array()){
+print "$arr[0].........$arr[1]........$arr[2]........$arr[3]\n";
+}
+
+}
+sub insertREc{
+print "enter id";
+$id=<>;
+chomp($id);
+print "enter name";
+$nm=<>;
+chomp($nm);
+print "enter sal";
+$sal=<>;
+chomp($sal);
+print "enter desg";
+$des=<>;
+chomp($des);
+$sins->execute($id,$nm,$sal,$des);
+
+}
+
+use DBI;
+use DBD::SQLite;
+my $driver = "SQLite";
+my $db_name = "myfirst.db";
+my $dbd = "DBI:$driver:dbname=$db_name";
+
+$dbh = DBI->connect($dbd , {RaiseError=>1}) or die "$DBI::errstr";
+print "database opened successfully\n";
+$sins=$dbh->prepare('insert into mytable1 values(?,?,?,?)');
+$sbyid=$dbh->prepare('select * from mytable1 where id=?');
+$sbydes=$dbh->prepare('select * from mytable1 where desg=?');
+$displayall=$dbh->prepare("select * from mytable1"); 
+
+
+do{
+print "1.Add employee\n";
+print "2.Find by employee id\n";
+print "3.Find by employee desg\n";
+print "4.display all\n";
+print "5.exit\n";
+$choice=<>;
+if($choice==1){
+
+insertREc();
+}
+elsif($choice==2)
+{
+print "Enter id";
+$id=<>;
+displayById($id);
+}
+
+elsif($choice==3)
+{
+print "Enter desg";
+$des=<>;
+chomp($des);
+displayBydesg($des);
+}
+
+elsif($choice==4){
+displayall();
+}
+else{
+exit 0;
+}}while($choice != 5);
+

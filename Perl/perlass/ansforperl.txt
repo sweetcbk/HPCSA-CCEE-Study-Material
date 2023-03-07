@@ -1,0 +1,37 @@
+1. 
+print "enter the string";
+$str=<>;
+chomp($str);
+foreach $char(split('',$str))
+{
+if($char eq uc($char))
+{
+print lc($char);
+}
+else{
+print uc ($char);
+}
+}
+
+
+
+2. 
+print "Enter the string\n";
+$str=<>;
+chomp($str);
+@arr=();
+foreach $s(split('',$str))
+{
+        if ($s eq "a" || $s eq "e" || $s eq "i"|| $s eq "o"|| $s eq "u")
+        {
+                next;
+        }
+
+push(@arr,$s);
+}
+$str=reverse(join('',@arr));
+print "$str\n";
+
+3.
+
+
